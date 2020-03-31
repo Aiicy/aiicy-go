@@ -1,7 +1,9 @@
+GO_TEST_FLAGS?=-race -short -covermode=atomic -coverprofile=coverage.txt
+GO_TEST_PKGS?=$(shell go list ./...)
+
 .PHONY: test
 test:
-	@go test ${GO_TEST_FLAGS} ${GO_TEST_PKGS}
-	@go tool cover -func=coverage.out | grep total
+	go test ${GO_TEST_FLAGS} ${GO_TEST_PKGS}
 
 .PHONY: fmt
 fmt:

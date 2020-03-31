@@ -33,7 +33,7 @@ func String(key string, val string) Field {
 
 func init() {
 	// Print log when start
-	S = New(LogInfo{Level: "debug"})
+	S = New(LogConfig{Level: "debug"})
 }
 
 // NewEncoderConfig creates logger config for debug mode
@@ -76,7 +76,7 @@ func ParseLevel(level string) (zapcore.Level, error) {
 }
 
 // New create a new Sugared logger
-func New(c LogInfo, fields ...string) *zap.SugaredLogger {
+func New(c LogConfig, fields ...string) *zap.SugaredLogger {
 	var (
 		format zapcore.Encoder
 		write  zapcore.WriteSyncer

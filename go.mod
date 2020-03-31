@@ -3,6 +3,7 @@ module github.com/aiicy/aiicy-go
 go 1.14
 
 require (
+	github.com/creasty/defaults v1.3.0
 	github.com/docker/go-connections v0.4.0
 	github.com/docker/go-units v0.4.0
 	github.com/stretchr/testify v1.5.1
