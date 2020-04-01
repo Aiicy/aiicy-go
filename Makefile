@@ -1,4 +1,4 @@
-GO_TEST_FLAGS?=-race -short -covermode=atomic -coverprofile=coverage.txt
+GO_TEST_FLAGS?=-race -short -covermode=atomic -coverprofile=coverage.out
 GO_TEST_PKGS?=$(shell go list ./...)
 
 .PHONY: test
