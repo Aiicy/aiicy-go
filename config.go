@@ -387,3 +387,10 @@ func LoadComposeAppConfigCompatible(configFile string) (cfg ComposeAppConfig, er
 	err = utils.LoadYAML(configFile, &cfg)
 	return cfg, err
 }
+
+// TODO: need test
+// CreateComposeAppConfigCompatible create compose app config
+func CreateComposeAppConfigCompatible(cfg ComposeAppConfig, configFile string) error {
+	err := utils.MarshalYAML(&cfg, configFile)
+	return err
+}

@@ -29,6 +29,19 @@ func LoadYAML(path string, out interface{}) error {
 	return UnmarshalYAML(res, out)
 }
 
+// MarshalYAML write config to file
+func MarshalYAML(in interface{}, outPath string) error {
+	/*err := SetDefaults(in)
+	if err != nil {
+		return err
+	}*/
+	out, err := yaml.Marshal(in)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(outPath, out, 0644)
+}
+
 // ParseEnv pasre env
 func ParseEnv(data []byte) ([]byte, error) {
 	text := string(data)
