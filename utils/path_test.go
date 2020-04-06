@@ -56,26 +56,26 @@ func TestPathJoin(t *testing.T) {
 	assert.Equal(t, "/var/db/var/db/a", path.Join("/var/db", "/var/db/a"))
 	assert.Equal(t, "/var/db/var/db/a", path.Join("/var/db", "var/db/a"))
 	assert.Equal(t, "/var/db/a/b", path.Join("/var/db", "a/b/c/./.."))
-	p, err := filepath.Rel("var/db/baetyl", "var/db/baetyl/vv/v1")
+	p, err := filepath.Rel("var/db/aiicy", "var/db/aiicy/vv/v1")
 	assert.NoError(t, err)
 	assert.Equal(t, "vv/v1", p)
-	p, err = filepath.Rel("var/db/baetyl", "var/db/baetyl/../../../vv/v1")
+	p, err = filepath.Rel("var/db/aiicy", "var/db/aiicy/../../../vv/v1")
 	assert.NoError(t, err)
 	assert.Equal(t, "../../../vv/v1", p)
 	assert.Equal(t, "../../../vv/v1", path.Clean(p))
-	assert.Equal(t, "vv/v1", path.Join("var/db/baetyl", p))
+	assert.Equal(t, "vv/v1", path.Join("var/db/aiicy", p))
 	assert.False(t, path.IsAbs(p))
-	assert.False(t, path.IsAbs("var/db/baetyl/./vv/v1"))
-	assert.False(t, path.IsAbs("var/db/baetyl/vv/v1"))
+	assert.False(t, path.IsAbs("var/db/aiicy/./vv/v1"))
+	assert.False(t, path.IsAbs("var/db/aiicy/vv/v1"))
 	assert.Equal(t, "/usr/local/bin", path.Join("/usr/local/", path.Join("/", "../../../../bin")))
 	assert.Equal(t, "/mnt/data0", path.Join("/", path.Join("/", "/mnt/data0")))
 }
 
 func TestWriteFile(t *testing.T) {
 	var res io.ReadCloser
-	err := WriteFile("var/lib/baetyl/service.yml", res)
+	err := WriteFile("var/lib/aiicy/service.yml", res)
 	assert.NotNil(t, err)
-	assert.Equal(t, "open var/lib/baetyl/service.yml: no such file or directory", err.Error())
+	assert.Equal(t, "open var/lib/aiicy/service.yml: no such file or directory", err.Error())
 
 	re := strings.NewReader("hello world")
 	dirname, err := ioutil.TempDir("", "test")
@@ -108,8 +108,8 @@ func TestCalculateMD5(t *testing.T) {
 	dir, err := ioutil.TempDir("", t.Name())
 	defer os.RemoveAll(dir)
 
-	_, err = CalculateFileMD5("var/lib/baetyl/service.yml")
-	assert.EqualError(t, err, "open var/lib/baetyl/service.yml: no such file or directory")
+	_, err = CalculateFileMD5("var/lib/aiicy/service.yml")
+	assert.EqualError(t, err, "open var/lib/aiicy/service.yml: no such file or directory")
 
 	src := path.Join(dir, "src.yml")
 	ioutil.WriteFile(src, []byte("zyx"), 0644)

@@ -79,7 +79,7 @@ modules:
 }
 
 func TestParseEnv(t *testing.T) {
-	const EnvHostIDKey = "BAETYL_HOST_ID"
+	const EnvHostIDKey = "AIICY_HOST_ID"
 	hostID := "test_host_id"
 	err := os.Setenv(EnvHostIDKey, hostID)
 	assert.NoError(t, err)
@@ -87,7 +87,7 @@ func TestParseEnv(t *testing.T) {
 id: id
 name: name
 others: others
-env: {{.BAETYL_HOST_ID}}
+env: {{.AIICY_HOST_ID}}
 modules:
   - name: m1
   - name: m2
@@ -95,7 +95,7 @@ modules:
       - arg1
       - arg2
 `
-	expectedString := strings.Replace(confString, "{{.BAETYL_HOST_ID}}", hostID, 1)
+	expectedString := strings.Replace(confString, "{{.AIICY_HOST_ID}}", hostID, 1)
 	res, err := ParseEnv([]byte(confString))
 	resString := string(res)
 	assert.Equal(t, expectedString, resString)
@@ -106,7 +106,7 @@ modules:
 id: id
 name: name
 others: others
-env: {{.BAETYL_NOT_EXIST}}
+env: {{.AIICY_NOT_EXIST}}
 modules:
   - name: m1
   - name: m2
@@ -122,7 +122,7 @@ modules:
 id: id
 name: name
 others: others
-env: {{BAETYL_HOST_ID}}
+env: {{AIICY_HOST_ID}}
 modules:
   - name: m1
   - name: m2
@@ -241,7 +241,7 @@ modules:
 id: id
 name: name
 others: others
-env: {{BAETYL_HOST_ID}}
+env: {{AIICY_HOST_ID}}
 modules:
   - name: m1
   - name: m2

@@ -1,0 +1,9 @@
+hub:
+  # address: ssl://aiicy-hub:8883
+  ca: example/var/lib/aiicy/testcert/ca.pem
+  key: example/var/lib/aiicy/testcert/client.key
+  cert: example/var/lib/aiicy/testcert/client.pem
+logger:
+  path: "var/log/service.log"
+  level: "debug"
+  encoding: "console"

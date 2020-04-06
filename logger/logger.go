@@ -23,12 +23,23 @@ type Logger = zap.SugaredLogger
 
 type Field = zap.Field
 
+// Any constructs a field with the given key and value
+func Any(key string, val interface{}) Field {
+	return zap.Any(key, val)
+}
+
 func Error(err error) Field {
 	return zap.Error(err)
 }
 
 func String(key string, val string) Field {
 	return zap.String(key, val)
+}
+
+// With creates a child logger and adds structured context to it. Fields added
+// to the child don't affect the parent, and vice versa.
+func With(fields ...Field) *Logger {
+	return zap.S().With(fields)
 }
 
 func init() {
@@ -76,7 +87,7 @@ func ParseLevel(level string) (zapcore.Level, error) {
 }
 
 // New create a new Sugared logger
-func New(c LogConfig, fields ...string) *zap.SugaredLogger {
+func New(c LogConfig, fields ...Field) *zap.SugaredLogger {
 	var (
 		format zapcore.Encoder
 		write  zapcore.WriteSyncer
@@ -92,12 +103,12 @@ func New(c LogConfig, fields ...string) *zap.SugaredLogger {
 		format = zapcore.NewConsoleEncoder(NewEncoderConfig())
 	}
 
-	if c.Mode == "file" {
+	if c.Encoding == "json" {
 		write = zapcore.AddSync(&lumberjack.Logger{
 			Filename:   c.Path,
-			MaxAge:     c.Age.Max,  //days
-			MaxSize:    c.Size.Max, // megabytes
-			MaxBackups: c.Backup.Max,
+			MaxAge:     c.MaxAge,  //days
+			MaxSize:    c.MaxSize, // megabytes
+			MaxBackups: c.MaxBackups,
 		})
 	} else {
 		write = os.Stdout
@@ -108,12 +119,8 @@ func New(c LogConfig, fields ...string) *zap.SugaredLogger {
 		logLevel,
 	)
 	var options []zap.Option
-	if len(fields) > 0 && len(fields)%2 == 0 {
-		zapFields := []zap.Field{}
-		for index := 0; index < len(fields)-1; index = index + 2 {
-			zapFields = append(zapFields, zap.String(fields[index], fields[index+1]))
-		}
-		options = append(options, zap.Fields(zapFields...))
+	if len(fields) > 0 {
+		options = append(options, zap.Fields(fields...))
 	}
 	if logLevel == zap.DebugLevel {
 		options = append(options, zap.AddCaller())

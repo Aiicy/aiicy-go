@@ -9,17 +9,11 @@ package logger
 
 // LogConfig for logging
 type LogConfig struct {
-	Path   string `yaml:"path" json:"path"`
-	Level  string `yaml:"level" json:"level" default:"info" validate:"regexp=^(info|debug|warn|error)$"`
-	Mode   string `yaml:"mode" json:"mode" default:"console" validate:"regexp=^(console|file)$"`
-	Format string `yaml:"format" json:"format" default:"text" validate:"regexp=^(text|json)$"`
-	Age    struct {
-		Max int `yaml:"max" json:"max" default:"15" validate:"min=1"`
-	} `yaml:"age" json:"age"` // days
-	Size struct {
-		Max int `yaml:"max" json:"max" default:"50" validate:"min=1"`
-	} `yaml:"size" json:"size"` // in MB
-	Backup struct {
-		Max int `yaml:"max" json:"max" default:"15" validate:"min=1"`
-	} `yaml:"backup" json:"backup"`
+	Path       string `yaml:"path" json:"path"`
+	Level      string `yaml:"level" json:"level" default:"info" validate:"regexp=^(info|debug|warn|error)$"`
+	Encoding   string `yaml:"encoding" json:"encoding" default:"json" validate:"regexp=^(json|console)$"`
+	Format     string `yaml:"format" json:"format" default:"text" validate:"regexp=^(text|json)$"`
+	MaxAge     int    `yaml:"maxAge" json:"maxAge" default:"15" validate:"min=1"`   // days
+	MaxSize    int    `yaml:"maxSize" json:"maxSize" default:"50" validate:"min=1"` // MB
+	MaxBackups int    `yaml:"maxBackups" json:"maxBackups" default:"15" validate:"min=1"`
 }
