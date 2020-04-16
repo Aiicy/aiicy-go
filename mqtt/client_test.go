@@ -17,7 +17,7 @@ func TestMqttClientConnectErrorMissingAddress(t *testing.T) {
 	cli := NewClient(ops)
 	assert.NotNil(t, cli)
 	defer cli.Close()
-	obs.assertErrs(errors.New("parse \"\": empty url"))
+	obs.assertErrs(errors.New("parse : empty url"))
 }
 
 func TestMqttClientConnectErrorWrongPort(t *testing.T) {
