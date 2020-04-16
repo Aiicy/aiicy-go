@@ -8,7 +8,7 @@
 package logger
 
 // LogConfig for logging
-type LogConfig struct {
+type Config struct {
 	Path       string `yaml:"path" json:"path"`
 	Level      string `yaml:"level" json:"level" default:"info" validate:"regexp=^(info|debug|warn|error)$"`
 	Encoding   string `yaml:"encoding" json:"encoding" default:"json" validate:"regexp=^(json|console)$"`

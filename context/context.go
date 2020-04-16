@@ -10,9 +10,11 @@ import (
 
 // Env keys
 const (
-	EnvKeyConfFile            = "AIICY_CONF_FILE"
-	EnvKeyServiceName         = "AIICY_SERVICE_NAME"
-	EnvKeyServiceInstanceName = "AIICY_SERVICE_INSTANCE_NAME"
+	EnvKeyConfFile               = "AIICY_CONF_FILE"
+	EnvKeyServiceMode            = "AIICY_SERVICE_MODE"
+	EnvKeyServiceName            = "AIICY_SERVICE_NAME"
+	EnvKeyServiceInstanceName    = "AIICY_SERVICE_INSTANCE_NAME"
+	EnvKeyServiceInstanceAddress = "AIICY_SERVICE_INSTANCE_ADDRESS"
 )
 
 // API keys

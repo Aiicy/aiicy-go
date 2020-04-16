@@ -8,5 +8,5 @@ import (
 // ServiceConfig base config of service
 type ServiceConfig struct {
 	Hub    mqtt.ClientConfig `yaml:"hub" json:"hub"`
-	Logger logger.LogConfig  `yaml:"logger" json:"logger"`
+	Logger logger.Config     `yaml:"logger" json:"logger"`
 }

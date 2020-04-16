@@ -17,11 +17,24 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-var S *zap.SugaredLogger
+var L *zap.Logger
 
-type Logger = zap.SugaredLogger
+type Logger = zap.Logger
 
 type Field = zap.Field
+
+// Level log level
+type Level = zapcore.Level
+
+// all log level
+const (
+	DebugLevel Level = iota - 1
+	InfoLevel
+	WarnLevel
+	ErrorLevel
+	PanicLevel
+	FatalLevel
+)
 
 // Any constructs a field with the given key and value
 func Any(key string, val interface{}) Field {
@@ -39,12 +52,12 @@ func String(key string, val string) Field {
 // With creates a child logger and adds structured context to it. Fields added
 // to the child don't affect the parent, and vice versa.
 func With(fields ...Field) *Logger {
-	return zap.S().With(fields)
+	return zap.L().With(fields...)
 }
 
 func init() {
 	// Print log when start
-	S = New(LogConfig{Level: "debug"})
+	L = New(Config{Level: "debug"})
 }
 
 // NewEncoderConfig creates logger config for debug mode
@@ -87,14 +100,14 @@ func ParseLevel(level string) (zapcore.Level, error) {
 }
 
 // New create a new Sugared logger
-func New(c LogConfig, fields ...Field) *zap.SugaredLogger {
+func New(c Config, fields ...Field) *zap.Logger {
 	var (
 		format zapcore.Encoder
 		write  zapcore.WriteSyncer
 	)
 	logLevel, err := ParseLevel(c.Level)
 	if err != nil {
-		S.Warnf("failed to parse log level (%s), use default level (info)", c.Level)
+		L.Warn("failed to parse log level, use default level (info)", String("level", c.Level))
 	}
 
 	if c.Format == "json" {
@@ -125,5 +138,5 @@ func New(c LogConfig, fields ...Field) *zap.SugaredLogger {
 	if logLevel == zap.DebugLevel {
 		options = append(options, zap.AddCaller())
 	}
-	return zap.New(core, options...).Sugar()
+	return zap.New(core, options...)
 }

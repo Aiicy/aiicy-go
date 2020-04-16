@@ -17,7 +17,7 @@ Go SDK for [Aiicy](https://aiicy.org)
 
 # Related
 
-The design of service management and instance control comes from [baetyl](https://github.com/baetyl/baetyl), it's license at [LICENSES/baetyl](LICENSES/baetyl).
+The design of service management, instance control and wrapper for mqtt comes from [baetyl](https://github.com/baetyl/baetyl), it's license at [LICENSES/baetyl](LICENSES/baetyl).
 
 # License
 
